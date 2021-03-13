@@ -1,0 +1,58 @@
+﻿body {
+    background-image: url(../pic/7.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+form {
+    /*text-align: center;*/
+    margin-bottom: 10%;
+    margin-top: 10%;
+    /*margin-left: 10%;*/
+}
+
+.error {
+    border: 4px solid red;
+}
+
+
+
+span {
+    /*margin-left: 25%;*/
+    display: none;
+    color: red;
+    /*font:bold 12px tahoma;*/
+}
+
+label {
+    color: white;
+}
+
+#container {
+    margin: auto;
+    align-content: center;
+    border: 4px solid hsl(309, 100%, 23%);
+    border-radius: 20px;
+    width: 80%;
+    display: block;
+    margin-top: 5%;
+    background-color: rgb(0,0,0,0.5);
+    box-shadow: 10px 10px 10px #9a80b0;
+}
+
+input[type="text"], input[type="number"], input[type="password"] {
+    width: 80%;
+    height: 25px;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+input[type="submit"], input[type="reset"] {
+    border-radius: 10px;
+    width: 20%;
+    height: 30px;
+    margin-right: 10px;
+    background-color: royalblue;
+    margin-left: 50px;
+}

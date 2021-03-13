@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Index</title>
+    <style>
+        div{
+            text-align:center;
+        }
+    </style>
+    <script src="js/JQuery-3.3.1.min.js"></script>
+    <script>
+
+        $.ajax({
+
+            url: 'data.json',
+            type: "get",
+            success: (res) => {
+                console.log(res);
+            },
+            error: (msg) => {
+                console.log(msg);
+            }
+        })
+
+    </script>
+</head>
+<body>
+    <div>
+        <h1><a href="Index/myhome.html" target="_blank">myhome</a></h1>
+        <h1><a href="Index/home.html" target="_blank">home</a></h1>
+        <h1><a href="Index/signpage.html" target="_blank">signup</a></h1>
+        <h1><a href="Index/admin.html" target="_blank">admin</a></h1>
+        <h1><a href="Index/supervisor.html" target="_blank">subadmin</a></h1>
+        <h1><a href="Index/users.html" target="_blank">employee</a></h1>
+    </div>
+</body>
+</html>

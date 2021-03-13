@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <link href="../css/font-awesome.css" rel="stylesheet" />
+    <script src="../js/JQuery-3.3.1.js"></script>
+    <link href="../css/home.css" rel="stylesheet" />
+    <script src="../js/json.js"></script>
+
+    <script>
+        window.addEventListener('load', function () {
+            //get user name
+            usertxtinput = document.getElementById("usertxtinput");
+            userpassinput = document.getElementById("userpassinput");
+            submit = document.getElementById("getin");
+
+            spantxt = document.getElementById("spantxt");
+            spanpass = document.getElementById("spanpass");
+            warnSpan = document.getElementById("warnSpan");
+
+            //onblur event
+            usertxtinput.addEventListener('blur', function () {
+                if (!isValidUserName()) {
+                    usertxtinput.focus();
+                    spantxt.style.display = 'block';
+                    usertxtinput.className = 'error';
+                } else {
+                    usertxtinput.className = '';
+                    spantxt.style.display = 'none';
+
+                }
+
+            });//end of blur user text
+            //pass blur
+            userpassinput.addEventListener('blur', function () {
+                if (!isValidPassword()) {
+                    userpassinput.focus();
+                    userpassinput.select();
+                    spanpass.style.display = 'block';
+                    userpassinput.className = 'none';
+                }
+                else {
+                    userpassinput.className = '';
+                    spanpass.style.display = 'none';
+                }
+
+            });//end of pass blur
+            //submit button
+            document.forms[0].addEventListener('submit', function (e) {
+
+                e.preventDefault();
+
+                if (!isValidUserName()) {
+                    usertxtinput.focus();
+                    spantxt.style.display = 'block';
+                }
+
+                if (!isValidPassword()) {
+                    userpassinput.focus();
+                    spanpass.style.display = 'block';
+                }
+                if (checkUserList()) {
+                    sessionStorage.setItem('userName', usertxtinput.value);
+                    console.log("you are with us");
+                    if (usertxtinput.value == "SubBB") {
+                        window.open("../Index/supervisor.html", "_self");
+                    }
+                    else if (usertxtinput.value == "AdminBB") {
+                        window.open("../Index/admin.html", "_self");
+                    }
+                    else {
+                        window.open("../Index/users.html", "_self");
+                    }
+                } else {
+                    alert("Please sign up frist");
+                    warnSpan.style.display = 'block';
+                    warnSpan.focus();
+                    return;
+                }
+
+            });//end of login
+            let _url = "../json/_json_emp.json";
+            let arr = [];
+            $.ajax({
+                url: _url,
+                type: "get",
+                success: function (data) {
+
+                    arr = data;
+                    console.log("json file", arr);
+
+                },
+                error: function err() {
+                    console.log("Failed!!");
+                }
+            });//end of load json
+            function checkUserList() {
+                for (i = 0; i < arr.length; i++) {
+                    if (arr[i].usertxtinput === usertxtinput.value && arr[i].userpassinput === userpassinput.value) {
+                        return true;
+                    }
+                }
+            }
+        });//end of load event
+        function isValidUserName() {
+            return usertxtinput.value.match(/^[A-Z][a-z]+["BB"]/);
+
+        }
+        function isValidPassword() {
+            return userpassinput.value.match(/^[A-Za-z0-9]{4}/g);
+        }
+    </script>
+    <style>
+        body {
+            background-image: url(../pic/17.jpg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section id="sec">
+            <h1>BETTER BUILDER </h1>
+        </section>
+        <section id="sec1">
+            <form>
+                <input type="text" placeholder="User Name" id="usertxtinput" /><br />
+                <span id="spantxt" class="span">Not Correct User Name</span><br>
+                <br />
+                <input type="password" placeholder="password" id="userpassinput" /><br />
+                <span id="spanpass" class="span">Required</span><br>
+                <br />
+                <br />
+                <input type="submit" value="Log In" id="getin" />
+                <br />
+                <br />
+                <span>If you are new user please &nbsp;<a href="signpage.html">Sign Up</a></span>
+            </form>
+            <span id="warnSpan" class="span">^-^Sorry!! You aren't with us ^-^</span>
+        </section>
+
+    </div>
+
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <script src="../js/JQuery-3.3.1.min.js"></script>
+    <script src="../js/popper.js"></script>
+    <script src="../js/bootstrap.js"></script>
+
+    <script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>

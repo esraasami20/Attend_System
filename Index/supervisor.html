@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Supervisor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+    <style>
+        * {
+            background-image: url(../pic/26.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .card {
+            width: 60%;
+            border-radius: 20px;
+            border: 2px solid purple;
+            margin-top: 5%;
+        }
+
+        a {
+            color: white;
+        }
+
+        #container {
+            visibility: visible;
+        }
+
+        #wraper {
+            visibility: hidden;
+        }
+
+        span {
+            text-align: right;
+        }
+
+        input[type="button"],
+        input[type="text"] {
+            border-radius: 10px;
+            border: 2px solid purple;
+        }
+
+        .sidebar-heading {
+            text-shadow: 10px 10px 10px #f301ba;
+        }
+
+        h1 {
+            color: #3b064d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">BETTER BUILDER</div>
+            <div class="list-group list-group-flush">
+                <p class="list-group-item">Hello • Ăýä •</p>
+                <p class="list-group-item list-group-item-action" id="showStatus"><a id="day" href="#">Daily
+                        Report</a> </p>
+                <p class="list-group-item list-group-item-action" id="showLateReport"><a href="#">Monthly Report</a></p>
+                <p class="list-group-item list-group-item-action" id="showAttReport"><a href="#">Attendance Report</a>
+                </p>
+                <p class="list-group-item list-group-item-action"><a href="home.html">Exit</a></p>
+
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">^-^Press Me^-^</button>
+                <div class="ml-auto">
+                    <h1>Better Builder Group</h1>
+                </div>
+
+            </nav>
+
+            <div class="container" id="cards">
+
+                <div id="lateRep" class="container card text-center">
+                    <div class="container card-body text-center">
+
+                        <label>
+                            <h5>Attend Time : </h5>
+                        </label>
+                        <span id="stAtt">value</span><br /><br />
+
+                    </div>
+                </div>
+
+
+                <div id="monRep" class="container card text-center">
+                    <div class="container card-body text-center">
+                        <label>
+                            <h5>Attend Days :&nbsp;</h5>
+                        </label>
+                        <span id="attendance">value
+                        </span><br /><br />
+                        <label>
+                            <h5>Late Days &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;</h5>
+                        </label>
+                        <span id="lateTime">value
+                        </span><br /><br />
+                        <label>
+                            <h5>Absent Days &nbsp; :</h5>
+                        </label>
+                        <span id="abbsent">
+                            value
+                        </span><br /><br />
+                    </div>
+                </div>
+
+                <div id="getemplog" class="container card text-center" style="background-color: purple;">
+                    <div class="container card-body text-center">
+                        <label>User code : </label>
+                        <input type="text" id="inputxtUser" />
+                        <br />
+                        <br />
+                        <input type="button" value="Confirm Attend" id="btn" />
+                    </div>
+                </div>
+                <div id="showemplog" class="container card text-center">
+                    <div class="container card-body text-center">
+                        <label>
+                            <h5>User Name :</h5>
+                        </label>
+                        <span id="employeeName">value</span><br /><br />
+                        <label>
+                            <h5>Attendance Time :</h5>
+                        </label>
+                        <span id="enterTime">value</span><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+
+        });
+        var empName = sessionStorage.getItem('userName');
+        $("#getemplog").hide();
+        $("#showemplog").hide();
+        $("#lateRep").hide();
+        $("#monRep").hide();
+        attendance = document.getElementById("attendance");
+        lateTime = document.getElementById("lateTime");
+        abbsent = document.getElementById("abbsent");
+        inputxtUser = document.getElementById("inputxtUser");
+        employeeName = document.getElementById("employeeName");
+        $('#showAttReport').on('click', () => {
+            $("#getemplog").show();
+            $("#showemplog").hide();
+            $("#lateRep").hide();
+            $("#monRep").hide();
+
+        });
+        $("#btn").on('click', () => {
+            $("#lateRep").hide();
+            $("#monRep").hide();
+            var user = getUser();
+
+            if (user) {
+                var Today = user.Today;
+                if (Today != today) {
+                    user.Today = today;
+                    user.attTime = time;
+                    var searchEorAM = date.toLocaleTimeString();
+                    console.log(searchEorAM)
+
+                    var hour = date.getHours();
+                    var minute = date.getMinutes();
+
+                    var countlate = +parseInt(user.late);
+                    var countabsant = +parseInt(user.absent);
+                    var countattend = +parseInt(user.attend);
+                    if (hour == 09 && searchEorAM) {
+                        if (minute <= 15) {
+                            user.attend = countattend + 1;
+                            console.log("attend on time");
+                        }
+                        else if (minute > 15 || minute <= 55) {
+                            console.log(user.late);
+                            user.late = countlate + 1;
+                            console.log("late");
+                        }
+                        else {
+                            user.absent = countabsant + 1;
+                            console.log("absent");
+                        }
+                    }                  
+
+                     else {
+                        user.absent = countabsant + 1;
+                    }
+
+                    SaveData();
+
+                    $('#showemplog').show();
+                    employeeName.innerText = user.fname + " " + user.lname;
+                    enterTime.innerText = user.attTime;
+
+
+                } else {
+                    alert("Attendance have been taken before");
+                }
+
+            } else {
+                alert("your name is not exsit");
+            }
+
+        });
+        $("#showLateReport").on('click', () => {
+            $("#monRep").show();
+            $("#getemplog").hide();
+            $("#showemplog").hide();
+            $("#lateRep").hide();
+
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].usertxtinput == empName) {
+                    attendance.innerText = arr[i].attend;
+                    lateTime.innerText = arr[i].late;
+                    abbsent.innerText = arr[i].absent;
+                }
+            }
+
+
+        });
+        $("#showStatus").on('click', () => {
+            $("#lateRep").show();
+            $("#getemplog").hide();
+            $("#showemplog").hide();
+            $("#monRep").hide();
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].usertxtinput == empName) {
+                    document.getElementById("stAtt").innerText = arr[i].attTime;
+
+                }
+            }
+        });
+        //get user
+        let _url = "../json/_json_emp.json";
+        let arr = [];
+        $.ajax({
+            url: _url,
+            type: "get",
+            success: function (data) {
+
+                arr = data;
+                console.log("json file", arr);
+
+            },
+            error: function err() {
+                console.log("Error Mesage!!");
+            }
+        });
+        var date = new Date();
+        var today = +new Date().getDate();
+        var time = new Date().toLocaleTimeString();
+
+        //check if userExist
+        function getUser() {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].randomCode == inputxtUser.value) {
+                    return arr[i];
+                }
+            }
+        }
+
+        //save data in json file//
+        function SaveData() {
+            console.log(arr);
+            var _StoreData = new Blob([JSON.stringify(arr)], { type: "appliction/json" });
+            var Linkelement = document.createElement("a");
+            Linkelement.href = window.webkitURL.createObjectURL(_StoreData);
+            Linkelement.setAttribute("download", "../json/emp.json");
+            document.body.appendChild(Linkelement);
+            Linkelement.click();
+            document.body.removeChild(Linkelement);
+        }
+
+    </script>
+
+</body>
+
+</html>

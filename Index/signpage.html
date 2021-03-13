@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <script src="../js/jquery-3.5.1.js"></script>
+    <link href="../css/font-awesome.css" rel="stylesheet" />
+    <link href="../Content/bootstrap-reboot.min.css" rel="stylesheet" />
+    <!--<link href="../css/signpage.css" rel="stylesheet" />-->
+    <script src="../Scripts/jquery-3.0.0.js"></script>
+    <style>
+        body {
+            background-image: url(../pic/17.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        form {
+            /*text-align: center;*/
+            margin-bottom: 2.5%;
+            margin-top: 2%;
+            padding-top: 30px;
+            /*margin-left: 10%;*/
+        }
+
+        #container:hover {
+            transform: scale(1.1);
+            transition-duration: 1s;
+        }
+
+        .error {
+            border: 4px solid red;
+        }
+
+
+
+        span,
+        #regbef {
+            /*margin-left: 25%;*/
+            display: none;
+            color: red;
+            /*font:bold 12px tahoma;*/
+        }
+
+        label {
+            color: white;
+        }
+
+        #container {
+            margin: auto;
+            align-content: center;
+            border: 4px solid hsl(309, 100%, 23%);
+            border-radius: 20px;
+            width: 60%;
+            display: block;
+            margin-top: 7.5%;
+            background-color: rgb(0, 0, 0, 0.5);
+            box-shadow: 10px 10px 10px #9a80b0;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
+            width: 60%;
+            height: 30px;
+            border-radius: 10px;
+            background-color: lightgray;
+            /* margin-bottom:15px;*/
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            border-radius: 10px;
+            /* width: 30%; */
+            height: 30px;
+            margin-right: 10px;
+            background-color: royalblue;
+            margin-left: 20px;
+        }
+    </style>
+    <script>
+        var user = JSON.parse(localStorage.getItem("user") || "[]");
+        window.addEventListener('load', function () {
+
+            fname = document.getElementById("fname");
+            lname = document.getElementById("lname");
+            ads = document.getElementById("ads");
+            mail = document.getElementById("mail");
+            age = document.getElementById("age");
+            regist = document.getElementById("regist");
+            usertxtinput = document.getElementById("usertxtinput");
+            userpassinput = document.getElementById("userpassinput");
+
+            spantext = document.getElementById("spantext");
+            spanpass = document.getElementById("spanpass");
+            spantxt = document.getElementById("spantxt");
+            spanlast = document.getElementById("spanlast");
+            spanads = document.getElementById("spanads");
+            spanmail = document.getElementById("spanmail");
+            spanage = document.getElementById("spanage");
+            regbef = document.getElementById("regbef");
+            // var flag = 0;
+            fname.addEventListener('blur', function () {
+                if (!isValidFristName()) {
+                    fname.focus();
+                    fname.select();
+                    spantxt.style.display = 'block';
+                    fname.className = 'error';
+                    // flag = 0;
+                } else {
+                    fname.className = '';
+                    spantxt.style.display = 'none';
+                    // flag = 1;
+                }
+
+            }); //end of fname blur
+            lname.addEventListener('blur', function () {
+                if (!isValidLastName()) {
+                    lname.focus();
+                    lname.select();
+                    spanlast.style.display = 'block';
+                    lname.className = 'error';
+                    // flag = 0;
+                } else {
+                    lname.className = '';
+                    spanlast.style.display = 'none';
+                    // flag = 1;
+                }
+            }); //end of lname blur
+            ads.addEventListener('blur', function () {
+                if (!isValidAddress()) {
+                    ads.focus();
+                    ads.select();
+                    spanads.style.display = 'block';
+                    ads.className = 'error';
+                    // flag = 0;
+                } else {
+                    ads.className = '';
+                    spanads.style.display = 'none';
+                    // flag = 1;
+                }
+
+            }); // end of blur for address
+            mail.addEventListener('blur', function () {
+                if (!isValidUserEmail()) {
+                    mail.focus();
+                    mail.select();
+                    spanmail.style.display = 'block';
+                    mail.className = 'error';
+                    // flag = 0;
+                } else {
+                    mail.className = '';
+                    spanmail.style.display = 'none';
+                    // flag = 1;
+                }
+
+            }); // end of blur for user email
+            age.addEventListener('blur', function () {
+                if (!isValidAge()) {
+                    age.focus();
+                    age.select();
+                    spanage.style.display = 'block';
+                    age.className = 'error';
+                    // flag = 0;
+                } else {
+                    age.className = '';
+                    spanage.style.display = 'none';
+                    // flag = 1;
+                }
+
+            });
+            //onblur event
+            usertxtinput.addEventListener('blur', function () {
+                if (!isValidUserName()) {
+                    usertxtinput.focus();
+                    userpassinput.select();
+                    spantext.style.display = 'block';
+                    usertxtinput.className = 'error';
+                    // flag = 0;
+
+                } else {
+                    usertxtinput.className = '';
+                    spantext.style.display = 'none';
+                    // flag = 1;
+
+                }
+            });//end of blur user text
+            //pass blur
+            userpassinput.addEventListener('blur', function () {
+                if (!isValidPassword()) {
+                    userpassinput.focus();
+                    userpassinput.select();
+                    spanpass.style.display = 'block';
+                    userpassinput.className = 'none';
+                    // flag = 0;
+
+                }
+                else {
+                    userpassinput.className = '';
+                    spanpass.style.display = 'none';
+                    // flag = 1;
+
+                }
+            });//end of pass blur
+            //login
+            document.forms[0].addEventListener('submit', function (e) {
+                // e.preventDefault();
+
+                if (!isValidFristName()) {
+                    fname.focus();
+                    spantxt.style.display = 'block';
+                }
+                if (!isValidLastName()) {
+                    lname.focus();
+                    //spanlast.style.display = 'block';
+                }
+                if (!isValidAddress()) {
+                    ads.focus();
+                    //spanads.style.display = 'block';
+                }
+                if (!isValidUserEmail()) {
+                    mail.focus();
+                    //spanmail.style.display = 'block';
+                }
+                if (!isValidAge()) {
+                    age.focus();
+                    //spanage.style.display = 'block';
+                }
+                if (!isValidUserName()) {
+                    usertxtinput.focus();
+                    //spantext.style.display = 'block';
+                }
+                if (!isValidPassword()) {
+                    userpassinput.focus();
+                    //spanpass.style.display = 'block';
+                }
+                if (isValidFristName() && isValidAge() && isValidUserName() && isValidAddress() && isValidUserEmail() && isValidLastName() && isValidPassword()) {
+                    addEmployee();
+                    alert("^_^ Data Entered ,Wait My dear till our ADMIN accept you ^_^");
+                }
+
+            });
+            //reset
+            document.forms[0].addEventListener('reset', function (e) {
+                if (!confirm("Do you want to reset the data you entered ^-^!!")) {
+                    e.preventDefault();
+
+                } else {
+                    fname.focus();
+                }
+
+            });
+        }); //end of load      
+        function addEmployee() {
+
+            user.push({
+
+                "fname": fname.value,
+                "lname": lname.value,
+                "usertxtinput": usertxtinput.value,
+                "userpassinput": userpassinput.value,
+                "ads": ads.value,
+                "mail": mail.value,
+                "age": age.value,
+                "randomCode": creatRand(),
+                "attTime": 0,
+                "Today": 0,
+                "absent": 0,
+                "attend": 0,
+                "late": 0,
+                "exc": "No Excuse"
+
+            });
+
+            localStorage.setItem('user', JSON.stringify(user));
+
+        }
+        //function createRandumNumber
+        function creatRand() {
+            var x = Math.floor(Math.random() * 100001);
+            if (checkuserCode(x)) {
+                return x;
+            }
+            else {
+                return creatRand();
+            }
+        }
+        //fuctionCheckRandumNumber
+        function checkuserCode(x) {
+            for (var i = 0; i < user.length; i++) {
+                if (user[i].randomCode == x) {
+                    return false;
+                }
+            }
+            return true;
+
+        }
+        function isValidFristName() {
+            return fname.value.match(/^[A-Za-z]{3,15}$/);
+
+        }
+        function isValidLastName() {
+            return lname.value.match(/^[A-Za-z]{3,15}$/);
+
+        }
+        function isValidUserEmail() {
+            return mail.value.match(/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)$/);
+
+        }
+        function isValidAddress() {
+            return ads.value.match(/^[A-Za-z]{2,30}$/);
+        }
+        function isValidAge() {
+            return age.value.match(/^2[4-9]|3[0-9]|4[0-9]|5[00]$/);
+        }
+        function isValidUserName() {
+            return usertxtinput.value.match(/^[A-Z][a-z]+["BB"]/);
+
+        }
+        function isValidPassword() {
+            return userpassinput.value.match(/^[A-Za-z0-9]{4}/g);
+        }
+
+
+    </script>
+</head>
+
+<body class="col-12">
+    <div id="container" class="container text-center">
+        <section id="sec">
+            <form>
+                <input type="text" placeholder="Please Enter your Frist Name" id="fname" />
+                <span id="spantxt">letters only from 3 - 15 as length</span><br /><br />
+                <input type="text" placeholder="Please Enter your Last Name" id="lname" />
+                <span id="spanlast">letters only from 3 - 15 as length</span><br /><br />
+                <input type="text" placeholder="Please Enter yourAddress" id="ads" />
+                <span id="spanads">Required</span><br /><br />
+                <input type="text" placeholder="Please Enter your mail" id="mail" />
+                <span id="spanmail">Not Correct E-mail</span><br /><br />
+                <input type="number" max="50" min="24" placeholder="Please Enter your Age" id="age" />
+                <span id="spanage">Required</span><br /><br />
+                <input type="text" placeholder="User Name" id="usertxtinput" />
+                <span id="spantext" class="span">Not Correct User Name</span><br /><br />
+                <input type="password" placeholder="password" id="userpassinput" />
+                <span id="spanpass" class="span">Required </span>
+                <br /><br />
+                <input type="submit" value="Register" id="regist" />
+                <input type="reset" value="Clear Data" id="res" />
+                <br /><br />
+                <p style="color: white;">If you become one of us please <a href="home.html">Log In</a></p>
+            </form>
+            <p id="regbef">Sorry ^-^ You Have REGISTER Before! ^-^</p>
+
+        </section>
+    </div>
+
+
+    <script src="../Scripts/bootstrap.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/popper.js"></script>
+    <script src="../Scripts/popper.js"></script>
+</body>
+
+</html>

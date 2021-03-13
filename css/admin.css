@@ -1,0 +1,25 @@
+﻿* {
+    background-image: url(../pic/21.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+
+
+a {
+    color: white;
+}
+
+#container {
+    visibility: visible;
+}
+
+#wraper {
+    visibility: hidden;
+}
+
+span {
+    text-align: right;
+}

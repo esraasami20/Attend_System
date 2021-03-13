@@ -1,0 +1,97 @@
+﻿body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container {
+    align-content: center;
+    margin: auto;
+    border-radius: 20px;
+    width: 80%;
+    padding-top: 5%;
+}
+
+img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    display: block;
+}
+
+form {
+    align-content: center;
+    margin-bottom: 10%;
+    margin-top: 10%;
+    padding-left: 5%;
+}
+
+
+.span {
+    margin-left: 25%;
+    display: none;
+    color: red;
+    /*font: bold 12px tahoma;*/
+}
+
+a:hover {
+    transform: scale(1.5);
+    transition: 1.5s;
+}
+
+
+
+input[type="text"], input[type="password"] {
+    width: 80%;
+    height: 30px;
+    border-radius: 10px;
+    background-color:lightgray;
+}
+
+input[type="submit"] {
+    border-radius: 10px;
+    width: 40%;
+    height: 30px;
+    background-color: royalblue;
+    background-image: url(../pic/17.jpg);
+}
+
+h1:hover {
+    cursor: pointer;
+    transform: scale(1.25);
+    transition: 1.5s;
+}
+
+
+
+#sec {
+    margin-bottom: 20px;
+    text-align: center;
+    color: rgb(24, 9, 16);
+}
+
+#sec1 {
+    text-align: center;
+    margin: auto;
+    align-content: center;
+    border-radius: 20px;
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 5%;
+    background-color: rgb(0,0,0,0.3);
+    box-shadow: 10px 10px 10px #9a80b0;
+
+}
+
+    #sec1:hover {
+        transform:scale(1.1);
+        transition-duration:1s;
+    }
+    
+
+
+span {
+    color: white;
+    /*font-size:18px;*/
+    display: inline-block;
+}
